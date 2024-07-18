@@ -6,11 +6,11 @@ import time
 
 if __name__ == '__main__':
     #credentials for yt account
-    username = "dummywummy10@gmail.com"
-    password = "Lmfaook@69!"
+    username = "" #enter youtube account username
+    password = "" #enter youtube account password
     
     #search term given by user
-    search_term = "carti"
+    search_term = "" #enter your desired topic 
 
     #opening youtube
     browser = uc.Chrome()
