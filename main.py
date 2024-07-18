@@ -6,11 +6,11 @@ import time
 
 if __name__ == '__main__':
     #credentials for yt account
-    username = "" #enter youtube account username
-    password = "" #enter youtube account password
+    username = "dummywummy10@gmail.com"
+    password = "Lmfaook@69!"
     
     #search term given by user
-    search_term = "" #enter your desired topic 
+    search_terms = ["carti", 'playboi carti', 'opium']
 
     #opening youtube
     browser = uc.Chrome()
@@ -23,32 +23,34 @@ if __name__ == '__main__':
     password_selector = "#password > div.aCsJod.oJeWuf > div > div.Xb9hP > input"
     WebDriverWait(browser, 20).until(EC.visibility_of_element_located((By.CSS_SELECTOR, '#password > div.aCsJod.oJeWuf > div > div.Xb9hP > input')))
     browser.find_element(By.CSS_SELECTOR, '#password > div.aCsJod.oJeWuf > div > div.Xb9hP > input').send_keys(password)
-    time.sleep(2)
     browser.find_element(By.CSS_SELECTOR, '#passwordNext > div > button > span').click()
     
     #youtube searching
     WebDriverWait(browser, 20).until(EC.visibility_of_element_located((By.NAME, "search_query")))
-    browser.find_element(By.NAME, "search_query").send_keys(search_term)
-    WebDriverWait(browser, 20).until(EC.element_to_be_clickable((By.ID, "search-icon-legacy"))).click()
-    browser.find_element(By.ID, "search-icon-legacy").click()
+    for i in range(len(search_terms)):
+        browser.find_element(By.NAME, "search_query").send_keys(search_terms[i])
+        WebDriverWait(browser, 20).until(EC.element_to_be_clickable((By.ID, "search-icon-legacy"))).click()
+        browser.find_element(By.ID, "search-icon-legacy").click()
     
-    #collecting all the urls on the page
-    anchor_links = browser.find_elements(By.TAG_NAME, 'a')
-    all_links = []
-    for anchor_link in anchor_links:
-        all_links.append(anchor_link.get_attribute('href'))
-    #fitering out bad links
-    valid_links = []
-    for link in all_links:
-        if isinstance(link, str):
-            valid_links.append(link)
-    #collecting video links
-    clickable_links = []
-    for valid_link in valid_links:
-        if '/watch?v=' in valid_link:
-            clickable_links.append(valid_link)
-    for url in range(10):
-        browser.get(f"{url}")
-        time.sleep(15)
-    #going back to the yt homepage to check for resulting feed
+        #collecting all the urls on the page
+        anchor_links = browser.find_elements(By.TAG_NAME, 'a')
+        all_links = []
+        for anchor_link in anchor_links:
+            all_links.append(anchor_link.get_attribute('href'))
+        #fitering out bad links
+        valid_links = []
+        for link in all_links:
+            if isinstance(link, str):
+                valid_links.append(link)
+        #collecting video links
+        clickable_links = []
+        for valid_link in valid_links:
+            if '/watch?v=' in valid_link:
+                clickable_links.append(valid_link)
+        print(clickable_links)
+        for i in range(10):
+            browser.get(clickable_links[i])
+            #watching the video for a legitimate amount of time
+            time.sleep(60)
+    #going back to the yt homepage to check for the resulting feed
     browser.find_element(By.CSS_SELECTOR, '#logo-icon > yt-icon-shape > icon-shape').click()
