@@ -52,7 +52,7 @@ Make sure to include the `.env` file in your `.gitignore` to prevent it from bei
 
 3. Run the script:
    ```bash
-   python script.py
+   python main.py
    ```
 
 4. Enter your search query when prompted. The script will:
